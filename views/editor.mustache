@@ -14,12 +14,12 @@
             min-height: 200px;
         }
     </style>
-    <form id="formulario" action="/users/salvarPostagem" method="post">
+    <form id="formulario" onsubmit="salvarConteudo()" action="/users/salvarPostagem" method="post">
         <label for="titulo">Título da postagem</label>
         <input type="textfield" id="titulo" name="titulo"></input>
         <div id="editor" name="editor"> <!-- This is the container for the Quill editor -->
         </div>
-        <input type="hidden" id="conteudoInput" name="postagem">
+        <input type="hidden":width name="postagem">
         <button type="submit">Salvar</button>
     </form>
 
@@ -28,19 +28,15 @@
     var quill = new Quill('#editor', {
         theme: 'snow'
     });
-
-    document.getElementById('formulario').addEventListener('submit', function(event) {
-    event.preventDefault(); // Prevent the default form submission behavior
-    
-    // Get the HTML content of the Quill editor
-    var editorContent = document.getElementById('editor').querySelector('.ql-editor').innerHTML;
-    
-    // Set the value of the hidden input field with the Quill editor content
-    document.getElementById('conteudoInput').value = editorContent;
-    
-    // Submit the form
-    this.submit();
-});
+    // adicionando o conteúdo do editor no input do formulário
+    function salvarConteudo(){
+        var editor = document.querySelector(".ql-editor").contentEditable = false;
+        var clipboard = document.querySelector(".ql-clipboard").contentEditable = false;
+        var bar = document.querySelector("input[type=text]").type="hidden"
+        var p = document.querySelector("#editor");
+        var myInput = document.querySelector("input[name=postagem]");
+        myInput.value = p.innerHTML;
+    }
 </script>
 </body>
 </html>
