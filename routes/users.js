@@ -2,7 +2,20 @@ var express = require('express');
 var router = express.Router();
 const fs = require('fs');
 const path = require('path');
+const Usuario = require('../model/Usuario');
 
+// Verifica se o usuário está logado
+aut = function (req, res, next) {
+  if (!req.session.user || !Usuario.isUser(req.session.user)) {
+    console.log('error');
+    res.redirect('../login');
+  }
+  else {
+    next();
+  }
+}
+
+router.use(aut);
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -12,7 +25,6 @@ router.get('/', function(req, res, next) {
 router.get('/novo', function(req, res, next) {
   res.render('editor');
 });
-// ainda falta resolver o problema ao tentar resgatar o conteudo detro do editor de texto
 router.post('/salvarPostagem', (req, res) => {
     const { titulo, postagem } = req.body;
     console.log(req.body.editor);

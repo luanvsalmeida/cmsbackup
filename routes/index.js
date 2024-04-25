@@ -24,7 +24,7 @@ router.post('/login', function(req, res, next) {
   else {
     // Checando dados do usuário
     if (Usuario.isUser(value)) {
-      req.session.authenticated = true;
+      req.session.user = value;
       res.redirect('/');
     } 
     else {
