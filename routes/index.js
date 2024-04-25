@@ -17,13 +17,13 @@ router.get('/login', function(req, res, next) {
 
 router.post('/login', function(req, res, next) {
   const {error, value} = LoginValidator.validate(req.body);
-
+  console.log('usuario: ' + value.usuario + ' senha: ' + value.senha);
   if (error) {
     res.render('login', {error: error.details[0].message, value: req.body});
   }
   else {
     // Checando dados do usuário
-    if (Usuario.isUser(req.body)) {
+    if (Usuario.isUser(value)) {
       req.session.authenticated = true;
       res.redirect('/');
     } 
