@@ -16,10 +16,16 @@
       <h3>{{.}}<h3>
     {{/error}}
 
-    {{#data}}
-        <h1>Conteúdo do arquivo: </h1>
-        <p>{{.}}</p>
-    {{/data}}
+    {{#titulo}}
+      <h1>Titulo da página: {{titulo}}</h1>
+    {{/titulo}}
+
+    {{#conteudo}}
+      <h1>Conteúdo da página:</h1>
+      <div class="conteudo">
+        {{{conteudo}}}
+      </div>
+    {{/conteudo}}
 
   </body>
 </html>

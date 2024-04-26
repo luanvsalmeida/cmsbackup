@@ -14,14 +14,23 @@
             min-height: 200px;
         }
     </style>
+    {{#titulo}}
+        <h1>Editar arquivo:</h1>
+    {{/titulo}}
+    {{^titulo}}
+        <h1>Criar arquivo:</h1>
+    {{/titulo}}
+
     <form id="formulario" onsubmit="salvarConteudo()" action="/users/salvarPostagem" method="post">
         <label for="titulo">Título da postagem</label>
-        <input type="textfield" id="titulo" name="titulo"></input>
-        <div id="editor" name="editor"> <!-- This is the container for the Quill editor -->
+        <input type="textfield" id="titulo" name="titulo" value = "{{titulo}}"></input>
+        <div id="editor" name="editor"><pre>{{conteudo}}</pre> <!-- This is the container for the Quill editor -->
         </div>
-        <input type="hidden":width name="postagem">
+        <input type="hidden" :width name="postagem">
         <button type="submit">Salvar</button>
     </form>
+
+    <a href="/">Voltar</a>
 
     <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
     <script>

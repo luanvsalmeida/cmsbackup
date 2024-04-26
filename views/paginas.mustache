@@ -17,7 +17,8 @@
     <ul>
         {{#files}}
             <li>
-                <a href="/arquivos/{{.}}">{{.}}</a>
+                <a href="/conteudo/{{.}}">{{.}}</a>
+                <a href="/arquivos/{{.}}">Editar</a>
             </li>
         {{/files}}
     </ul>
@@ -25,5 +26,7 @@
     {{#error}}
       <h3>{{.}}<h3>
     {{/error}}
+
+    <a href="/">Voltar</a>
   </body>
 </html>

@@ -45,13 +45,13 @@ router.get('/arquivos', (req, res) => {
     };
     console.log(files);
     res.render("paginas", {files: files});
-
   });
 });
 
-//Renderiza conteudo de arquivos txt e html
+//Renderiza conteudo de arquivos
 router.get("/arquivos/:file", (req, res) => {
   const { file } = req.params;
+  console.log(file);
   const dirPath = path.resolve(__dirname, "..", "Arquivos");
   const filePath = path.join(dirPath, file);
 
@@ -60,25 +60,38 @@ router.get("/arquivos/:file", (req, res) => {
     return;
   };
 
-  //Renderiza o conteúdo do arquivo txt na página conteúdo
-  if (file.endsWith('.txt')) {
+  //Renderiza o conteúdo do arquivo na página de edição
     fs.readFile(filePath, 'utf-8', (erro, data) => {
       if (erro) {
         console.error('Erro ao ler o arquivo:', erro);
         res.status(500).send('Erro interno do servidor');
         return;
       }
-      res.render("conteudo", {data: data});
-      return;
+      return res.render("editor", {titulo: file.replace(".html", ""), conteudo: data});
     });
-  } else if(file.endsWith('.html')) {
-    //Carrega página HTML
-    res.sendFile(filePath);
-  } else {                    
-    //Arquivo não pode ser renderizado                 
-    res.render('conteudo', {error: "O arquivo não pode ser renderizado. Formato não suportado."});
-    return;
   }
+);
 
-});
+router.get("/conteudo/:file", (req, res) => {
+  const { file } = req.params;
+  console.log(file);
+  const dirPath = path.resolve(__dirname, "..", "Arquivos");
+  const filePath = path.join(dirPath, file);
+
+  if(!fs.existsSync(filePath)){
+    res.render("conteudo", {error: "Erro ao encontrar arquivo: arquivo não existe."});
+    return;
+  };
+
+  //Renderiza o conteúdo do arquivo na página de edição
+    fs.readFile(filePath, 'utf-8', (erro, data) => {
+      if (erro) {
+        console.error('Erro ao ler o arquivo:', erro);
+        res.status(500).send('Erro interno do servidor');
+        return;
+      }
+      return res.render("conteudo", {titulo: file.replace(".html", ""), conteudo: data});
+    });
+  }
+);
 module.exports = router;
