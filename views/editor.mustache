@@ -15,16 +15,16 @@
         }
     </style>
     {{#titulo}}
-        <h1>Editar arquivo:</h1>
+        <h1>Editar postagem:</h1>
     {{/titulo}}
     {{^titulo}}
-        <h1>Criar arquivo:</h1>
+        <h1>Criar posstagem:</h1>
     {{/titulo}}
 
     <form id="formulario" onsubmit="salvarConteudo()" action="/users/salvarPostagem" method="post">
         <label for="titulo">Título da postagem</label>
         <input type="textfield" id="titulo" name="titulo" value = "{{titulo}}"></input>
-        <div id="editor" name="editor"><pre>{{conteudo}}</pre> <!-- This is the container for the Quill editor -->
+        <div id="editor" name="editor">{{{conteudo}}} <!-- This is the container for the Quill editor -->
         </div>
         <input type="hidden" :width name="postagem">
         <button type="submit">Salvar</button>

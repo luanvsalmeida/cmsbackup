@@ -4,16 +4,28 @@ const Usuario = require('../model/Usuario');
 const LoginValidator = require('../validator/LoginValidator');
 const path = require('path');
 const fs = require('fs');
+const acesso = require('../helpers/acesso');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  if (req.session.logado) {
+    res.render('index', { usuario: req.session.user });
+  }
+  else {
+    res.render('index');
+  }
 });
 
 router.get('/login', function(req, res, next) {
   const {error, value} = {};
   res.render('login', {error, value});
 });
+
+router.get('/logout', function(req, res, next) {
+  req.session.logado = false;
+  req.session.user = undefined;
+  res.redirect('/');
+})
 
 router.post('/login', function(req, res, next) {
   const {error, value} = LoginValidator.validate(req.body);
@@ -49,7 +61,7 @@ router.get('/arquivos', (req, res) => {
 });
 
 //Renderiza conteudo de arquivos
-router.get("/arquivos/:file", (req, res) => {
+router.get("/arquivos/:file", acesso.autentica, (req, res) => {
   const { file } = req.params;
   console.log(file);
   const dirPath = path.resolve(__dirname, "..", "Arquivos");

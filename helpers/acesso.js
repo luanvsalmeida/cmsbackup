@@ -10,13 +10,14 @@ module.exports = {
             next();
         }
     },
-    estaLogado: function (req, res) {
+    estaLogado: function (req, res, next) {
         if (!req.session.user || !Usuario.isUser(req.session.user)) {
             req.session.logado = false;
         }
         else {
             req.session.logado = true;
         }
+        next();
     }     
 }
 

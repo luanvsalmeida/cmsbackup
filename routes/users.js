@@ -3,6 +3,7 @@ var router = express.Router();
 const fs = require('fs');
 const path = require('path');
 const Usuario = require('../model/Usuario');
+const acesso = require('../helpers/acesso');
 
 // Verifica se o usuário está logado
 aut = function (req, res, next) {
@@ -15,11 +16,20 @@ aut = function (req, res, next) {
   }
 }
 
-router.use(aut);
+router.use(acesso.autentica);
 
-/* GET users listing. */
+// Página inicial do usuário ainda não implementada
 router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+  const diretorioArquivos = path.resolve(__dirname, "..", "Arquivos");
+
+  fs.readdir(diretorioArquivos, (erro, files) => {
+    if(erro) {
+      res.render('paginas', {error: "Arquivos não encontrados"});
+      return;
+    };
+    console.log(files);
+    res.render("paginas", {files: files});
+  });
 });
 
 router.get('/novo', function(req, res, next) {

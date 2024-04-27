@@ -4,6 +4,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 require('dotenv').config();
 const session = require("express-session");
+const acesso = require('./helpers/acesso');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -28,9 +29,10 @@ app.use(session({
     secret: process.env.SECRET,
     resave: false,
     saveUninitialized: false
-}));   
-
+}));
+app.use(acesso.estaLogado);
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+
 
 module.exports = app;

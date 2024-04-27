@@ -13,7 +13,12 @@
   <body>
     <h1>PÁGINA INICIAL</h1>
     <h2>POSTAGENS MAIS RECENTES</h2>
-    <a href="/login">Entrar</a>
+    {{#usuario}}
+      <a href="/logout">Sair</a>
+    {{/usuario}}
+    {{^usuario}}
+      <a href="/login">Entrar</a>
+    {{/usuario}}
     <a href="/users/novo">Criar arquivo</a>
     <a href="/arquivos">Arquivos Disponíveis</a>
     
