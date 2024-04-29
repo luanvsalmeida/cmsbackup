@@ -22,6 +22,7 @@ router.get('/login', function(req, res, next) {
 });
 
 router.get('/logout', function(req, res, next) {
+  // atribui um valor indefinido para o usuário na sessão
   req.session.logado = false;
   req.session.user = undefined;
   res.redirect('/');
