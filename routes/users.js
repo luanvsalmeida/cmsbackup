@@ -53,4 +53,18 @@ router.post('/salvarPostagem', (req, res) => {
     });
 });
 
+//Página para excluir postagem
+router.get('/excluir', function(req, res) {
+  const titulo = req.query.titulo;
+
+  console.log(titulo);
+  const filePath = path.join(__dirname, '..', 'Arquivos', `${titulo}.html`);
+  //Deleta a postagem
+  fs.unlink(filePath, function (err) {
+    if (err) 
+      throw err;
+  });
+  res.redirect('/');
+})
+
 module.exports = router;
