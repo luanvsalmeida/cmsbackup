@@ -4,7 +4,7 @@ const Usuario = require('../model/Usuario');
 module.exports = {
     autentica: function (req, res, next) {
         if (!req.session.user || !Usuario.isUser(req.session.user)) {
-            res.redirect('../login');
+            res.redirect('/login');
         }
         else {
             next();
@@ -20,4 +20,3 @@ module.exports = {
         next();
     }     
 }
-

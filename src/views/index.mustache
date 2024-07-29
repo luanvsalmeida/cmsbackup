@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <title>CMS</title>
+  </head>
+  <body>
+    <h1>PÁGINA INICIAL</h1>
+
+    {{#success}}
+      <p class="success">Login realizado com sucesso!</p>
+    {{/success}}
+
+    {{#login}}
+      <a class="options" href="/logout">Sair</a>
+    {{/login}}
+
+    {{^login}}
+      <a class="options" href="/login">Entrar</a>
+    {{/login}}
+
+    <a class="options" href="/arquivos/novo">Criar Postagem</a>
+    <a class="options" href="/arquivos">Postagens Disponíveis</a>
+    
+    <h2>POSTAGENS MAIS RECENTES</h2>
+    <div>
+    <label for="sort">Ordenar por:</label>
+    <select id="sort" onchange="sortPosts()">
+      <option value="default" {{#sortDefault}}selected{{/sortDefault}}>Padrão</option>
+      <option value="charCount" {{#sortCharCount}}selected{{/sortCharCount}}>Número de Caracteres</option>
+      <option value="date" {{#sortDate}}selected{{/sortDate}}>Data</option>
+      <option value="title" {{#sortTitle}}selected{{/sortTitle}}>Título</option>
+    </select>
+  </div>
+    {{#previews}}
+      <li class="preview">
+        <h2>{{titulo}}</h2>
+        <a href="/arquivos/{{filename}}">Ver completa</a>
+        <p>{{{preview}}}</p>
+      </li>
+    {{/previews}}
+
+  </body>
+</html>

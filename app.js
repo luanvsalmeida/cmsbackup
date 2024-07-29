@@ -1,25 +1,27 @@
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-require('dotenv').config();
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
 const session = require("express-session");
-const acesso = require('./helpers/acesso');
+const acesso = require('./src/middlewares/middlewares');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+const arquivosRouter = require('./src/routes/arquivos');
+const loginRoutes = require('./src/routes/login');
 
-var app = express();
+require('dotenv').config();
+
+const app = express();
 
 // view engine setup
-var mustacheExpress = require("mustache-express");
-var engine = mustacheExpress();
+const mustacheExpress = require("mustache-express");
+const engine = mustacheExpress();
 app.engine("mustache", engine);
 
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, '/src/views'));
 app.set('view engine', 'mustache');
 
 app.use(logger('dev'));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -31,8 +33,8 @@ app.use(session({
     saveUninitialized: false
 }));
 app.use(acesso.estaLogado);
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/arquivos', arquivosRouter);
+app.use('/', loginRoutes);
 
 
 module.exports = app;
