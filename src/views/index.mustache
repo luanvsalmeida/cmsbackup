@@ -30,21 +30,27 @@
     
     <h2>POSTAGENS MAIS RECENTES</h2>
     <div>
-    <label for="sort">Ordenar por:</label>
-    <select id="sort" onchange="sortPosts()">
-      <option value="default" {{#sortDefault}}selected{{/sortDefault}}>Padrão</option>
-      <option value="charCount" {{#sortCharCount}}selected{{/sortCharCount}}>Número de Caracteres</option>
-      <option value="date" {{#sortDate}}selected{{/sortDate}}>Data</option>
-      <option value="title" {{#sortTitle}}selected{{/sortTitle}}>Título</option>
+    <label for="ordenar">Ordenar por:</label>
+    <select id="ordenar" onchange="sortPosts()">
+      <option value="padrao" {{#ordPadrao}}selected{{/ordPadrao}}>Padrão</option>
+      <option value="data" {{#ordData}}selected{{/ordData}}>Data</option>
+      <option value="titulo" {{#ordTitulo}}selected{{/ordTitulo}}>Título</option>
     </select>
   </div>
     {{#previews}}
       <li class="preview">
         <h2>{{titulo}}</h2>
-        <a href="/arquivos/{{filename}}">Ver completa</a>
+        <a href="/arquivos/{{titulo}}.html">Ver completa</a>
         <p>{{{preview}}}</p>
       </li>
     {{/previews}}
 
+    <script>
+      function sortPosts() {
+        const sort = document.getElementById('ordenar').value;
+        document.cookie = 'ordenar' + "=" + sort;  
+        window.location.href = `/`;
+      }
+    </script>
   </body>
 </html>

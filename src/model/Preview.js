@@ -14,7 +14,6 @@ module.exports = {
                 titulo: arquivo.replace('.html', ''),
                 preview,
                 nomeArq: arquivo,
-                qtdChar: conteudo.length,
                 data: stats.mtime
             };
         });
@@ -22,8 +21,6 @@ module.exports = {
 
     ordenar: function ordenar(previews, opcao) {
         switch (opcao) {
-            case 'qtdChar':
-                return previews.sort((a, b) => a.qtdChar - b.qtdChar);
             case 'data':
                 return previews.sort((a, b) => new Date(a.data) - new Date(b.data));
             case 'titulo':
